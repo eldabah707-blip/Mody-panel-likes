@@ -27,13 +27,16 @@ used_count = 0
 def load_tokens(region):
     try:
         if region == "IND":
-            with open("token_ind.json", "r") as f:
+            with open("token_ind.json", "r", encoding="utf-8") as f:
+                tokens = json.load(f)
+        elif region == "ME":
+            with open("token_me.json", "r", encoding="utf-8") as f:
                 tokens = json.load(f)
         elif region in {"BR", "US", "SAC", "NA"}:
-            with open("token_br.json", "r") as f:
+            with open("token_br.json", "r", encoding="utf-8") as f:
                 tokens = json.load(f)
         else:
-            with open("token_bd.json", "r") as f:
+            with open("token_bd.json", "r", encoding="utf-8") as f:
                 tokens = json.load(f)
         return tokens
     except Exception as e:
@@ -146,6 +149,8 @@ def make_request(encrypt, region, token):
             url = "https://client.ind.freefiremobile.com/GetPlayerPersonalShow"
         elif region in {"BR", "US", "SAC", "NA"}:
             url = "https://client.us.freefiremobile.com/GetPlayerPersonalShow"
+        elif region == "ME":
+            url = "https://clientbp.ggpolarbear.com/GetPlayerPersonalShow"
         else:
             url = "https://clientbp.ggpolarbear.com/GetPlayerPersonalShow"
             
@@ -224,6 +229,8 @@ def handle_requests():
                 url = "https://client.ind.freefiremobile.com/LikeProfile"
             elif region in {"BR", "US", "SAC", "NA"}:
                 url = "https://client.us.freefiremobile.com/LikeProfile"
+            elif region == "ME":
+                url = "https://clientbp.ggpolarbear.com/LikeProfile"
             else:
                 url = "https://clientbp.ggpolarbear.com/LikeProfile"
 
